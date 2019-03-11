@@ -5,25 +5,18 @@ version: 2.1
 
 orbs:
     lambda-dev: lambda-dev/dev-release-1@0.0.1
-
-jobs:
-  build:
-    docker: 
-      - image: "circleci/node:8"
-    steps:
-      - run:
-          name: "Env variables"
-          command: |
-                  echo 'export LAMBDATEST_USERNAME="deepakm"' >> $BASH_ENV
-                  echo 'export LT_ACCESS_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
-                  echo 'export LT_USERNAME="deepakm"' >> $BASH_ENV
-                  echo 'export LAMBDATEST_EMAIL="deepakm@lambdatest.com"' >> $BASH_ENV
-                  echo 'export LAMBDATEST_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
+    environment:
+      LAMBDATEST_USERNAME: "deepakm"
+      LT_ACCESS_KEY: "gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"
+      LT_USERNAME: "deepakm"
+      LAMBDATEST_EMAIL: "deepakm@lambdatest.com"
+      LAMBDATEST_KEY: "gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"
 
 workflows:      
     basic_workflow:
         jobs:
           - lambda-dev/with_tunnel:
+
               steps:
                 - run: # test what branch we're on.
                     name: "Here is the LT_Username : "
