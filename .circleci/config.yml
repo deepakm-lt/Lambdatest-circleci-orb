@@ -5,43 +5,34 @@ version: 2.1
 
 orbs:
     lambda-dev: lambda-dev/dev-release-1@0.0.1
-workflows:
-    basic_workflow:
-        jobs:
-          - lambda-dev/with_tunnel:
-              steps:
-                - checkout
-                
-                - run: 
-                    name: "Setup custom environment variables"
-                    command: |
-                      echo 'export LAMBDATEST_USERNAME="deepakm"' >> $BASH_ENV
-                
-                - run:
-                    name: "Setup custom environment variables"
-                    command: |
-                      echo 'export LT_USERNAME="deepakm"' >> $BASH_ENV
-                      
-                - run:
-                    name: "Setup custom environment variables"
-                    command: |
-                      echo 'export LT_ACCESS_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
 
-                - run:
-                    name: "Setup custom environment variables"
-                    command: |
-                      echo 'export LAMBDATEST_EMAIL="deepakm@lambdatest.com"' >> $BASH_ENV
-                      
-                - run:
-                    name: "Setup custom environment variables"
-                    command: |
-                      echo 'export LAMBDATEST_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
+jobs:
+  build:
+    docker: 
+      - image: "circleci/node:8"
+    steps:
+      - run:
+          name: "Env variables"
+          command: |
+                  echo 'export LAMBDATEST_USERNAME="deepakm"' >> $BASH_ENV
+                  echo 'export LT_ACCESS_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
+                  echo 'export LT_USERNAME="deepakm"' >> $BASH_ENV
+                  echo 'export LAMBDATEST_EMAIL="deepakm@lambdatest.com"' >> $BASH_ENV
+                  echo 'export LAMBDATEST_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
 
-                - run: # test what branch we're on.
-                    name: "Here is the LT_Username : "
-                    command: echo ${LT_USERNAME}       
+workflows:      
+    Execute-Orbs:
+      jobs:
+        
+        - lambda-dev/with_tunnel:
+            steps:
+              - run: # test what branch we're on.
+                  name: "Here is the LT_Username : "
+                  command: echo ${LT_USERNAME}       
 
-                - run: 
-                    command: |
-                      npm install
-                      node_modules/.bin/nightwatch -e chrome
+              - run: 
+                  command: |
+                    npm install
+                    node_modules/.bin/nightwatch -e chrome
+
+
