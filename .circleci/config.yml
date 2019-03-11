@@ -16,6 +16,16 @@ workflows:
                     name: "Setup custom environment variables"
                     command: |
                       echo 'export LAMBDATEST_USERNAME="deepakm"' >> $BASH_ENV
+                
+                - run:
+                    name: "Setup custom environment variables"
+                    command: |
+                      echo 'export LT_USERNAME="deepakm"' >> $BASH_ENV
+                      
+                - run:
+                    name: "Setup custom environment variables"
+                    command: |
+                      echo 'export LT_ACCESS_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
 
                 - run:
                     name: "Setup custom environment variables"
