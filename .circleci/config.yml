@@ -21,18 +21,17 @@ jobs:
                   echo 'export LAMBDATEST_KEY="gIUJGTZtydrnSbdGro6Hm0yOJDfFBJWGZQ8FdyPA1rv07ZxxQA"' >> $BASH_ENV
 
 workflows:      
-    Execute-Orbs:
-      jobs:
-        
-        - lambda-dev/with_tunnel:
-            steps:
-              - run: # test what branch we're on.
-                  name: "Here is the LT_Username : "
-                  command: echo ${LT_USERNAME}       
+    basic_workflow:
+        jobs:
+          - lambda-dev/with_tunnel:
+              steps:
+                - run: # test what branch we're on.
+                    name: "Here is the LT_Username : "
+                    command: echo ${LT_USERNAME}       
 
-              - run: 
-                  command: |
-                    npm install
-                    node_modules/.bin/nightwatch -e chrome
+                - run: 
+                    command: |
+                      npm install
+                      node_modules/.bin/nightwatch -e chrome
 
 
